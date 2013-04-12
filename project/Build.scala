@@ -9,10 +9,12 @@ object ApplicationBuild extends Build {
 
     val appDependencies = Seq(
       // Add your project dependencies here,
+      "com.google.code.gson" % "gson" % "2.1",
+      "com.google.guava" % "guava" % "14.0.1"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
-      // Add your own project settings here      
+      // Add your own project settings here
     )
 
 }
