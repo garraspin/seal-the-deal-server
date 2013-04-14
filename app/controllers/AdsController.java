@@ -1,8 +1,12 @@
 package controllers;
 
 import models.AdsService;
+import models.GcmService;
+import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
+
+import java.io.IOException;
 
 public class AdsController extends Controller {
 
@@ -19,6 +23,13 @@ public class AdsController extends Controller {
 
     public static Result removeSellerAd(int sellerId, int adId) {
         new AdsService().removeSellerAd(sellerId, adId);
+        try {
+            GcmService.sendMessage(String.valueOf(sellerId), String.valueOf(adId));
+        } catch (IOException e) {
+            new AdsService().addSellerAd(sellerId, adId);
+            Logger.error("Error sending GCM message to seller: " + sellerId, e);
+            return internalServerError();
+        }
         return ok();
     }
 

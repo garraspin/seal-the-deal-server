@@ -2,14 +2,15 @@ package models;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaticRepository implements Repository {
+public class StaticAdRepository implements AdRepository {
 
-    // NOTE should be thread safe!!!
-    private Multimap<Integer, Integer> sellersAds = ArrayListMultimap.create();
+    private Multimap<Integer, Integer> sellersAds =
+            Multimaps.synchronizedListMultimap(ArrayListMultimap.<Integer, Integer>create());
 
     {
         sellersAds.put(1, 0);
@@ -25,12 +26,12 @@ public class StaticRepository implements Repository {
 
     @Override
     public void removeAdForSeller(int sellerId, int adId) {
-        sellersAds.put(sellerId, adId);
+        sellersAds.remove(sellerId, adId);
     }
 
     @Override
     public void addAdForSeller(int sellerId, int adId) {
-        sellersAds.remove(sellerId, adId);
+        sellersAds.put(sellerId, adId);
     }
 
 }
