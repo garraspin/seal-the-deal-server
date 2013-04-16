@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class GcmService {
 
-    private static final String API_KEY = "AIzaSyCRdiIh9H6EpLp_JvZ9cmH6mtGf1KhuVwc";
+    private static final String API_KEY = "AIzaSyD788SjyS_FByYToA1DmGxs7Od9W79khwI";
 
     public static void sendMessage(String regId, String adId) throws IOException {
         Sender sender = new Sender(API_KEY);

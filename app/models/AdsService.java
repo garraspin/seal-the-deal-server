@@ -7,6 +7,7 @@ import java.util.List;
 public class AdsService {
 
     private final Gson GSON = new Gson();
+
     private static final StaticAdRepository repository = new StaticAdRepository();
 
     public String getAdsForSeller(int sellerId) {

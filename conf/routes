@@ -12,6 +12,6 @@ GET     /seller-ads/:sellerId       controllers.AdsController.getSellerAds(selle
 GET     /seller-ads/add/:sellerId/:adId     controllers.AdsController.addSellerAd(sellerId: Int, adId: Int)
 GET     /seller-ads/remove/:sellerId/:adId     controllers.AdsController.removeSellerAd(sellerId: Int, adId: Int)
 
-POST    /register                   controllers.GcmController.register(regId: String)
-POST    /unregister                 controllers.GcmController.unregister(regId: String)
+POST    /register                   controllers.GcmController.register
+POST    /unregister                 controllers.GcmController.unregister
 GET     /registrated                controllers.GcmController.registrated
