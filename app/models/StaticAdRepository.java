@@ -17,6 +17,7 @@ public class StaticAdRepository implements AdRepository {
         sellersAds.put(1, 1);
         sellersAds.put(1, 2);
         sellersAds.put(2, 3);
+        sellersAds.put(2, 4);
     }
 
     @Override
