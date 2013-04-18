@@ -74,5 +74,6 @@ public final class Datastore {
         synchronized (regIdsToUserIds) {
             regIdsToUserIds.clear();
         }
+        new StaticAdRepository().resetAds();
     }
 }

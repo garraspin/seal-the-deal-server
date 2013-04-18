@@ -13,6 +13,11 @@ public class StaticAdRepository implements AdRepository {
             Multimaps.synchronizedListMultimap(ArrayListMultimap.<Integer, Integer>create());
 
     {
+        resetAds();
+    }
+
+    public void resetAds() {
+        sellersAds.clear();
         sellersAds.put(1, 0);
         sellersAds.put(1, 1);
         sellersAds.put(1, 2);

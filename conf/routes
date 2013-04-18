@@ -8,11 +8,12 @@ GET     /                           controllers.Application.index()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-GET     /seller-ads/:sellerId       controllers.AdsController.getSellerAds(sellerId: Int)
+GET     /seller-ads/:sellerId               controllers.AdsController.getSellerAds(sellerId: Int)
 GET     /seller-ads/add/:sellerId/:adId     controllers.AdsController.addSellerAd(sellerId: Int, adId: Int)
-GET     /seller-ads/remove/:sellerId/:adId     controllers.AdsController.removeSellerAd(sellerId: Int, adId: Int)
+GET     /seller-ads/remove/:sellerId/:adId  controllers.AdsController.removeSellerAd(sellerId: Int, adId: Int)
 
 POST    /register                   controllers.GcmController.register
 POST    /unregister                 controllers.GcmController.unregister
 GET     /registrated                controllers.GcmController.registrated
-GET     /cleanregistries                controllers.GcmController.cleanGcm
+
+GET     /reset                      controllers.GcmController.cleanGcm
