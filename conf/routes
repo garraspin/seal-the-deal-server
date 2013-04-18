@@ -15,3 +15,4 @@ GET     /seller-ads/remove/:sellerId/:adId     controllers.AdsController.removeS
 POST    /register                   controllers.GcmController.register
 POST    /unregister                 controllers.GcmController.unregister
 GET     /registrated                controllers.GcmController.registrated
+GET     /cleanregistries                controllers.GcmController.cleanGcm

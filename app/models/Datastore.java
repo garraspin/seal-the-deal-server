@@ -70,4 +70,9 @@ public final class Datastore {
       }
   }
 
+    public static void clean() {
+        synchronized (regIdsToUserIds) {
+            regIdsToUserIds.clear();
+        }
+    }
 }

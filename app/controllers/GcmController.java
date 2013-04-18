@@ -22,4 +22,9 @@ public class GcmController extends Controller {
         return ok(Datastore.getDevices().toString());
     }
 
+    public static Result cleanGcm() {
+        Datastore.clean();
+        return ok();
+    }
+
 }
