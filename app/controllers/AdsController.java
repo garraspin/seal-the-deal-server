@@ -1,6 +1,7 @@
 package controllers;
 
 import models.AdsService;
+import models.Datastore;
 import models.GcmService;
 import play.Logger;
 import play.mvc.Controller;
@@ -24,7 +25,8 @@ public class AdsController extends Controller {
     public static Result removeSellerAd(int sellerId, int adId) {
         new AdsService().removeSellerAd(sellerId, adId);
         try {
-            GcmService.sendMessage(String.valueOf(sellerId), String.valueOf(adId));
+            String regId = Datastore.getRegId(String.valueOf(sellerId));
+            GcmService.sendMessage(regId, String.valueOf(adId));
         } catch (IOException e) {
             new AdsService().addSellerAd(sellerId, adId);
             Logger.error("Error sending GCM message to seller: " + sellerId, e);

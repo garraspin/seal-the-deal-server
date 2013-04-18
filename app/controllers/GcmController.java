@@ -7,7 +7,8 @@ import play.mvc.Result;
 public class GcmController extends Controller {
     public static Result register() {
         String regId = form().bindFromRequest().get("regId");
-        Datastore.register(regId);
+        String userId = form().bindFromRequest().get("userId");
+        Datastore.register(regId, userId);
         return ok();
     }
 

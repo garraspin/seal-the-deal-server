@@ -1,33 +1,15 @@
-/*
- * Copyright 2012 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package models;
+
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Simple implementation of a data store using standard Java collections.
- * <p>
- * This class is thread-safe but not persistent (it will lost the data when the
- * app is restarted) - it is meant just as an example.
- */
 public final class Datastore {
 
-  private static final List<String> regIds = new ArrayList<String>();
+  private static final BiMap<String, String> regIdsToUserIds = HashBiMap.create();
   private static final Logger logger =
       Logger.getLogger(Datastore.class.getName());
 
@@ -38,10 +20,10 @@ public final class Datastore {
   /**
    * Registers a device.
    */
-  public static void register(String regId) {
+  public static void register(String regId, String userId) {
     logger.info("Registering " + regId);
-    synchronized (regIds) {
-      regIds.add(regId);
+    synchronized (regIdsToUserIds) {
+        regIdsToUserIds.put(regId, userId);
     }
   }
 
@@ -50,8 +32,8 @@ public final class Datastore {
    */
   public static void unregister(String regId) {
     logger.info("Unregistering " + regId);
-    synchronized (regIds) {
-      regIds.remove(regId);
+    synchronized (regIdsToUserIds) {
+        regIdsToUserIds.remove(regId);
     }
   }
 
@@ -60,9 +42,10 @@ public final class Datastore {
    */
   public static void updateRegistration(String oldId, String newId) {
     logger.info("Updating " + oldId + " to " + newId);
-    synchronized (regIds) {
-      regIds.remove(oldId);
-      regIds.add(newId);
+    synchronized (regIdsToUserIds) {
+        String userId = regIdsToUserIds.get(oldId);
+        regIdsToUserIds.remove(oldId);
+        regIdsToUserIds.put(newId, userId);
     }
   }
 
@@ -70,9 +53,21 @@ public final class Datastore {
    * Gets all registered devices.
    */
   public static List<String> getDevices() {
-    synchronized (regIds) {
-      return new ArrayList<String>(regIds);
+    synchronized (regIdsToUserIds) {
+      return new ArrayList<String>(regIdsToUserIds.keySet());
     }
+  }
+
+    public static String getUserId(String regId) {
+        synchronized (regIdsToUserIds) {
+            return regIdsToUserIds.get(regId);
+        }
+    }
+
+  public static String getRegId(String userId) {
+      synchronized (regIdsToUserIds) {
+          return regIdsToUserIds.inverse().get(userId);
+      }
   }
 
 }
