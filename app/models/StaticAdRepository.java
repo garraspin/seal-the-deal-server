@@ -18,7 +18,7 @@ public class StaticAdRepository implements AdRepository {
 
     public void resetAds() {
         sellersAds.clear();
-        sellersAds.put(1, 0);
+        sellersAds.put(2, 0);
         sellersAds.put(1, 1);
         sellersAds.put(1, 2);
         sellersAds.put(2, 3);
